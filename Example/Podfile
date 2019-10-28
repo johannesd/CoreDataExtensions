@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CoreDataExtensions_Example' do
+  pod 'CoreDataExtensions', :path => '../'
+
+  target 'CoreDataExtensions_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

@@ -1,0 +1,22 @@
+{
+  "name": "CoreDataExtensions",
+  "version": "0.1.0",
+  "summary": "A short description of CoreDataExtensions.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/johannesd/CoreDataExtensions",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "johannesd": "mail@johannesdoerr.de"
+  },
+  "source": {
+    "git": "https://github.com/johannesd/CoreDataExtensions.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "CoreDataExtensions/Classes/**/*"
+}

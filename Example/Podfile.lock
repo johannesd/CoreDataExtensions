@@ -1,0 +1,16 @@
+PODS:
+  - CoreDataExtensions (0.1.0)
+
+DEPENDENCIES:
+  - CoreDataExtensions (from `../`)
+
+EXTERNAL SOURCES:
+  CoreDataExtensions:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CoreDataExtensions: 84e8b703073faffd12a39a9cb52cb5cdbb1702f1
+
+PODFILE CHECKSUM: 08ea53c8189aaeff897fea01f09bebe57a3273be
+
+COCOAPODS: 1.8.3
