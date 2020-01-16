@@ -18,32 +18,32 @@ public enum SingleRelatedEntityIdentifier {
  */
 public protocol SingleIdentifiableRelatedManagedObject: IdentifiableRelatedManagedObject {
     associatedtype RelatedEntityIdentifier = SingleRelatedEntityIdentifier
-    static func predicate(relatedEntityID: RelatedID) -> NSPredicate
-    static func entityCount() -> Int?
+    static func predicate(relatedEntityID: RelatedID, relatedParameters: RelatedParameters) -> NSPredicate
+    static func entityCount(relatedParameters: RelatedParameters) -> Int?
 }
 
 extension SingleIdentifiableRelatedManagedObject where Self: NSManagedObject, RelatedEntityIdentifier == SingleRelatedEntityIdentifier {
-    public static func predicate(relatedEntityID: RelatedID, relatedEntityIdentifier: RelatedEntityIdentifier) -> NSPredicate {
-        return predicate(relatedEntityID: relatedEntityID)
+    public static func predicate(relatedEntityID: RelatedID, relatedEntityIdentifier: RelatedEntityIdentifier, relatedParameters: RelatedParameters) -> NSPredicate {
+        return predicate(relatedEntityID: relatedEntityID, relatedParameters: relatedParameters)
     }
 
-    public static func entityCount(for relatedEntityIdentifier: RelatedEntityIdentifier) -> Int? {
-        return entityCount()
+    public static func entityCount(for relatedEntityIdentifier: RelatedEntityIdentifier, relatedParameters: RelatedParameters) -> Int? {
+        return entityCount(relatedParameters: relatedParameters)
     }
 
-    public static func entityCount() -> Int? {
+    public static func entityCount(relatedParameters: RelatedParameters) -> Int? {
         return 1
     }
 
-    public static func fetchRequest<ResultType>(forRelatedEntityID id: RelatedID) -> NSFetchRequest<ResultType> where ResultType: NSManagedObject {
-        return fetchRequest(forRelatedEntityID: id, identifier: .any) as NSFetchRequest<ResultType>
+    public static func fetchRequest<ResultType>(forRelatedEntityID id: RelatedID, relatedParameters: RelatedParameters) -> NSFetchRequest<ResultType> where ResultType: NSManagedObject {
+        return fetchRequest(forRelatedEntityID: id, identifier: .any, relatedParameters: relatedParameters) as NSFetchRequest<ResultType>
     }
 
-    public static func fetch<ResultType>(relatedEntityID id: RelatedID) -> [ResultType] where ResultType: NSManagedObject {
-        return fetch(relatedEntityID: id, identifier: .any) as [ResultType]
+    public static func fetch<ResultType>(relatedEntityID id: RelatedID, relatedParameters: RelatedParameters) -> [ResultType] where ResultType: NSManagedObject {
+        return fetch(relatedEntityID: id, identifier: .any, relatedParameters: relatedParameters) as [ResultType]
     }
 
-    public static func fetch<ResultType>(relatedEntityID id: RelatedID) -> ResultType? where ResultType: NSManagedObject {
-        return fetch(relatedEntityID: id, identifier: .any) as ResultType?
+    public static func fetch<ResultType>(relatedEntityID id: RelatedID, relatedParameters: RelatedParameters) -> ResultType? where ResultType: NSManagedObject {
+        return fetch(relatedEntityID: id, identifier: .any, relatedParameters: relatedParameters) as ResultType?
     }
 }

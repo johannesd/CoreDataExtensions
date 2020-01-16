@@ -18,32 +18,32 @@ public enum SingleRelatedLocalEntityIdentifier {
  */
 public protocol SingleLocallyIdentifiableRelatedManagedObject: LocallyIdentifiableRelatedManagedObject {
     associatedtype RelatedLocalEntityIdentifier = SingleRelatedLocalEntityIdentifier
-    static func predicate(relatedLocalEntityID: RelatedLocalID) -> NSPredicate
-    static func localEntityCount() -> Int?
+    static func predicate(relatedLocalEntityID: RelatedLocalID, relatedParameters: RelatedLocalParameters) -> NSPredicate
+    static func localEntityCount(relatedParameters: RelatedLocalParameters) -> Int?
 }
 
 extension SingleLocallyIdentifiableRelatedManagedObject where Self: NSManagedObject, RelatedLocalEntityIdentifier == SingleRelatedLocalEntityIdentifier {
-    public static func predicate(relatedLocalEntityID: RelatedLocalID, relatedLocalEntityIdentifier: RelatedLocalEntityIdentifier) -> NSPredicate {
-        return predicate(relatedLocalEntityID: relatedLocalEntityID)
+    public static func predicate(relatedLocalEntityID: RelatedLocalID, relatedLocalEntityIdentifier: RelatedLocalEntityIdentifier, relatedParameters: RelatedLocalParameters) -> NSPredicate {
+        return predicate(relatedLocalEntityID: relatedLocalEntityID, relatedParameters: relatedParameters)
     }
 
-    public static func localEntityCount(for identifier: RelatedLocalEntityIdentifier) -> Int? {
-        return localEntityCount()
+    public static func localEntityCount(for identifier: RelatedLocalEntityIdentifier, relatedParameters: RelatedLocalParameters) -> Int? {
+        return localEntityCount(relatedParameters: relatedParameters)
     }
 
-    public static func localEntityCount() -> Int? {
+    public static func localEntityCount(relatedParameters: RelatedLocalParameters) -> Int? {
         return 1
     }
 
-    public static func fetchRequest<ResultType>(forRelatedLocalEntityID localID: RelatedLocalID) -> NSFetchRequest<ResultType> where ResultType: NSManagedObject {
-        return fetchRequest(forRelatedLocalEntityID: localID, identifier: .any) as NSFetchRequest<ResultType>
+    public static func fetchRequest<ResultType>(forRelatedLocalEntityID localID: RelatedLocalID, relatedParameters: RelatedLocalParameters) -> NSFetchRequest<ResultType> where ResultType: NSManagedObject {
+        return fetchRequest(forRelatedLocalEntityID: localID, identifier: .any, relatedParameters: relatedParameters) as NSFetchRequest<ResultType>
     }
 
-    public static func fetch<ResultType>(relatedLocalEntityID localID: RelatedLocalID) -> [ResultType] where ResultType: NSManagedObject {
-        return fetch(relatedLocalEntityID: localID, identifier: .any) as [ResultType]
+    public static func fetch<ResultType>(relatedLocalEntityID localID: RelatedLocalID, relatedParameters: RelatedLocalParameters) -> [ResultType] where ResultType: NSManagedObject {
+        return fetch(relatedLocalEntityID: localID, identifier: .any, relatedParameters: relatedParameters) as [ResultType]
     }
 
-    public static func fetch<ResultType>(relatedLocalEntityID localID: RelatedLocalID) -> ResultType? where ResultType: NSManagedObject {
-        return fetch(relatedLocalEntityID: localID, identifier: .any) as ResultType?
+    public static func fetch<ResultType>(relatedLocalEntityID localID: RelatedLocalID, relatedParameters: RelatedLocalParameters) -> ResultType? where ResultType: NSManagedObject {
+        return fetch(relatedLocalEntityID: localID, identifier: .any, relatedParameters: relatedParameters) as ResultType?
     }
 }
