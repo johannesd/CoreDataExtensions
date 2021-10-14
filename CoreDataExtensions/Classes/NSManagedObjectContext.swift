@@ -12,7 +12,7 @@ import CoreData
 extension NSManagedObjectContext {
 
     @discardableResult
-    open func performAndWait<T>(_ block: () -> T) -> T {
+    open func _performAndWait<T>(_ block: () -> T) -> T {
         var value: T?
         self.performAndWait {
             value = block()
@@ -21,7 +21,7 @@ extension NSManagedObjectContext {
     }
 
     @discardableResult
-    open func performAndWait<T>(_ block: () throws -> T) throws -> T {
+    open func _performAndWait<T>(_ block: () throws -> T) throws -> T {
         var retValue: T?
         var retError: Error?
         self.performAndWait {
