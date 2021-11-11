@@ -17,8 +17,8 @@ import CoreData
  without type casting.
  */
 public protocol IdentifiableManagedObject {
-    associatedtype ID: CVarArg
-    var id: ID? { get }
+    associatedtype SelfID: CVarArg
+    var id: SelfID? { get }
 }
 
 extension IdentifiableManagedObject where Self: NSManagedObject {
@@ -26,7 +26,7 @@ extension IdentifiableManagedObject where Self: NSManagedObject {
      Creates a FetchRequest using the given ID
      - Parameter id: The id of the requested object
      */
-    public static func fetchRequest<ResultType>(forEntityID id: ID) -> NSFetchRequest<ResultType> where ResultType: NSManagedObject {
+    public static func fetchRequest<ResultType>(forEntityID id: SelfID) -> NSFetchRequest<ResultType> where ResultType: NSManagedObject {
         // XXX: entity().name is optional and sometimes nil, so we fall back to the class name in that case
         let entityName = ResultType.entity().name ?? String(describing: self)
         let request: NSFetchRequest<ResultType> = NSFetchRequest(entityName: entityName)
@@ -39,7 +39,7 @@ extension IdentifiableManagedObject where Self: NSManagedObject {
      Creates a FetchRequest using the given ID
      - Parameter id: The id of the requested object
      */
-    public static func fetchRequest(forID id: ID) -> NSFetchRequest<Self> {
+    public static func fetchRequest(forID id: SelfID) -> NSFetchRequest<Self> {
         return fetchRequest(forEntityID: id)
     }
 
@@ -47,7 +47,7 @@ extension IdentifiableManagedObject where Self: NSManagedObject {
      Fetches an object with the given ID
      - Parameter id: The id of the requested object
      */
-    public static func fetch<ResultType>(entityID id: ID) -> ResultType? where ResultType: NSManagedObject {
+    public static func fetch<ResultType>(entityID id: SelfID) -> ResultType? where ResultType: NSManagedObject {
         let request: NSFetchRequest<ResultType> = fetchRequest(forEntityID: id)
         return (try? request.execute())?.first
     }
@@ -56,7 +56,7 @@ extension IdentifiableManagedObject where Self: NSManagedObject {
      Fetches an object with the given ID
      - Parameter id: The id of the requested object
      */
-    public static func fetch(id: ID) -> Self? {
+    public static func fetch(id: SelfID) -> Self? {
         return fetch(entityID: id)
     }
 }
